@@ -22,7 +22,8 @@ export module Apimodels {
     count: number;
     next: string;
     previous?: string;
-    results: Result[];
-
+    results: Result[]; // arreglo de personajes de SW
   }
 }
+
+export default Apimodels;

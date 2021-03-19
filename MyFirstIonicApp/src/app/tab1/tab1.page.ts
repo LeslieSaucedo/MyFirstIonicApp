@@ -19,16 +19,35 @@ export class Tab1Page {
     this.welcomeMessage = "Bienvenido a mi app";
     this.url = "http://swapi.dev/api/people/";
     this.myApiResponseData = <Apimodels.ISWData>{}; // new Apimodels.ISWData
-    this.processing = false;
+    this.callApi();
   }
 
-  buttonClicked()
+  callApi()
   {
+    this.processing = true;
      fetch(this.url)
     .then(response => response.json())
     .then((data: Apimodels.ISWData) =>{
       // debugger;
       this.myApiResponseData = data;
+      this.processing = false;
     })
+  }
+// window top
+  goTop() {
+    let top = document.getElementById('top');
+    top.scrollIntoView();
+  }
+
+  previous() {
+    this.url = this.myApiResponseData.previous;
+    this.callApi();
+    this.goTop();
+  }
+
+  next() {
+    this.url = this.myApiResponseData.next;
+    this.callApi();
+    this.goTop();
   }
 }

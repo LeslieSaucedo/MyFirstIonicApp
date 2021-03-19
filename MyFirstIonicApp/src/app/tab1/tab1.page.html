@@ -9,16 +9,53 @@
   </ion-header>
 
   <div class="container">
+    <!--
+      window top
+    -->
+    <div id="top"></div>
     <ion-grid>
       <ion-row>
        <ion-col size="12" class="ion-text-center">
-    <ion-button (click)= "buttonClicked()">Buscar</ion-button>
+        <ion-button (click)= "callApi()">Buscar</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-progress-bar *ngIf="processing" type="indeterminate"></ion-progress-bar>
-
   </div>
 
+  <div *ngIf="myApiResponseData.count > 0">
+    <ion-card *ngFor="let p of myApiResponseData.results">
+      <ion-item>
+        <ion-label>{{p.name}}</ion-label>
+        <ion-button href="{{p.url}}" target="_blank">INFO</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h3>Hair color: {{p.hair_color}}</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-card-content>
+        <span *ngFor="let f of p.films">
+          <a href="{{f}}" target="_blank">{{f}}</a>
+          <hr />
+        </span>
+      </ion-card-content>
+
+
+    </ion-card>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" class="ion-text-center">
+      <ion-button *ngIf="myApiResponseData.previous" (click)="previous()" color="warning"><<</ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+      <ion-button *ngIf="myApiResponseData.next" (click)="next()" color="warning">>></ion-button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
